@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kga/p5-Test-Time-HiRes.svg?branch=master)](https://travis-ci.org/kga/p5-Test-Time-HiRes)
 # NAME
 
 Test::Time::HiRes - It's new $module
