@@ -6,7 +6,6 @@ use Test::Time::HiRes;
 use Test::Time::HiRes::At;
 
 use Time::HiRes qw(time sleep);
-use DateTime;
 
 subtest 'do_at with epoch' => sub {
     local $Test::Time::HiRes::time = 1.0;
@@ -22,21 +21,26 @@ subtest 'do_at with epoch' => sub {
 };
 
 subtest 'do_at with DateTime' => sub {
-    local $Test::Time::HiRes::time = 2.3;
+    SKIP: {
+        eval { require 'DateTime' };
+        skip 'DateTime is not installed' if $@;
 
-    my $time = DateTime->new(
-        year => 2016, month => 8, day => 2,
-        hour => 15, minute => 28, second => 32,
-        nanosecond => 123450000,
-    );
+        local $Test::Time::HiRes::time = 2.3;
 
-    do_at {
-        is time, 1470151712.12345, 'time is 1470151712.12345 in this scope';
-        sleep 10.3;
-        is time, 1470151722.42345, 'time is 1470151722.42345 after sleep';
-    } $time->hires_epoch;
+        my $dt = DateTime->new(
+            year => 2016, month => 8, day => 2,
+            hour => 15, minute => 28, second => 32,
+            nanosecond => 123450000,
+        );
 
-    is time, 2.3, 'time is 2.3 after do_at';
+        do_at {
+            is time, 1470151712.12345, 'time is 1470151712.12345 in this scope';
+            sleep 10.3;
+            is time, 1470151722.42345, 'time is 1470151722.42345 after sleep';
+        } $dt;
+
+        is time, 2.3, 'time is 2.3 after do_at';
+    };
 };
 
 subtest 'sub_at' => sub {
