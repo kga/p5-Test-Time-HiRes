@@ -11,5 +11,5 @@ perl:
   - "5.22"
   - "5.24"
 script:
-  perl Build.pl && ./Build && ./Build test -v
+  perl Build.PL && ./Build && ./Build test -v
 
