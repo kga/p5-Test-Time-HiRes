@@ -1,0 +1,4 @@
+name = "Test-Time-HiRes"
+# badges = ["travis"]
+module_maker="ModuleBuildTiny"
+
