@@ -22,7 +22,7 @@ subtest 'do_at with epoch' => sub {
 
 subtest 'do_at with DateTime' => sub {
     SKIP: {
-        eval { require 'DateTime' };
+        eval { require DateTime };
         skip 'DateTime is not installed', 3 if $@;
 
         local $Test::Time::HiRes::time = 2.3;
